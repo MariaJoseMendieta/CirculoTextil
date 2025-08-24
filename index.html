@@ -379,6 +379,12 @@
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
       }
+
+      // 👇 Cerrar el menú cuando se haga clic en un enlace (solo si está abierto)
+      const menu = document.querySelector(".menu");
+      if (menu.classList.contains("show")) {
+        menu.classList.remove("show");
+      }
     });
   });
 
