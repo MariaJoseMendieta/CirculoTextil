@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Círculo Textil</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: #f7f5f0;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #222;
+    }
+
+    /* ====== MENÚ ====== */
+    nav {
+      position: relative;
+    }
+    .menu {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+    }
+    .menu li a {
+      text-decoration: none;
+      color: #555;
+      transition: color 0.3s ease;
+    }
+    .menu li a:hover {
+      color: #000;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        background: #333;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 220px;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .menu li {
+        margin: 10px 0;
+      }
+      .menu li a {
+        color: #fff;
+      }
+      .menu.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 1.5s ease;
+    }
+    .hero img {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 12px;
+    }
+    .hero h1 {
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+    }
+    .section {
+      padding: 60px 10%;
+      animation: fadeInUp 1s ease;
+      scroll-margin-top: 100px;
+    }
+    .section h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 60%;
+      border-radius: 8px;
+    }
+    .nosotros-contenido {
+      display: flex;
+      text-align: justify;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .nosotros-contenido .texto {
+      flex: 1 1 50%;
+      min-width: 280px;
+    }
+    .nosotros-contenido .imagen {
+      flex: 1 1 40%;
+      text-align: center;
+    }
+    .nosotros-contenido .imagen img {
+      width: 60%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #mision p {
+      text-align: justify;
+      line-height: 1.6; /* para que sea más legible */
+      margin-bottom: 15px; /* separación entre párrafos */
+    }
+    /* Política de Calidad: bullets dentro del contenedor */
+#calidad ul {
+  list-style: disc inside;  /* mete el punto dentro del bloque */
+  margin: 0;                /* elimina margen por defecto del <ul> */
+  padding-left: 0;          /* evita doble sangría */
+}
+
+#calidad li {
+  text-align: justify;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 40px 10%;
+      margin-top: 40px;
+    }
+    #contacto {
+      padding: 60px 20px;
+    }
+    #contacto h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+    }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .contact-item {
+      flex: 1 1 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .contact-item:hover {
+      transform: translateY(-5px);
+    }
+    h3 {
+      margin-bottom: 10px;
+      color: #ff6600;
+    }
+    .contact-item p {
+      margin: 0;
+      font-size: 1rem;
+    }
+    .contact-item a {
+      text-decoration: none;
+      color: #333;
+    }
+    #galeria .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    #galeria .grid img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    #galeria .grid img:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(40px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @media screen and (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Círculo Textil</div>
+    <nav>
+      <button class="menu-toggle">☰</button>
+      <ul class="menu">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#mision">Misión y Visión</a></li>
+        <li><a href="#calidad">Política de Calidad</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Confeccionamos prendas de calidad, seguras y sostenibles para el sector industrial</h1>
+    <img src="images/perchero.jpg" alt="Foto principal">
+  </section>
+
+  <section class="section" id="nosotros">
+    <h2>Quiénes Somos</h2>
+    <div class="nosotros-contenido">
+      <div class="texto">
+      <p class="text-justify">
+          <strong>Círculo Textil</strong>, antes <em>Desafío Textil S.R.L.</em>, es una empresa manufacturera ubicada al norte de la ciudad, dedicada a la confección y comercialización de prendas de tejido plano y punto. Contamos con maquinaria moderna, un equipo de 15 personas comprometidas con la calidad, la seguridad industrial y el respeto a nuestro entorno.
+        </p>
+        <p class="text-justify">
+          Nuestra fortaleza radica en ofrecer uniformes y prendas de alta calidad, con diseños personalizados, telas duraderas y precios competitivos. El emprendimiento, impulsado por mujeres colombianas, promueve la innovación, el desarrollo tecnológico y la mejora continua en cada proceso productivo.
+        </p>
+        <p class="text-justify">
+          En <strong>Círculo Textil</strong> trabajamos para satisfacer a nuestros clientes con productos confiables, cumpliendo siempre con los más altos estándares de calidad, cumplimiento y servicio.
+        </p>  
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mision">
+    <h2>Misión y Visión</h2>
+    <p><strong>Misión:</strong> Somos una empresa de diseño, confeccion y distribución de prendas de vestir para el sector comercial enfocados en la seguridad industrial, la cual proporciona productos de alta calidad para satisfacer las necesidades de nuestros clientes, garantizando la seguridad de los trabajadores, la sostenibilidad de la producción, y la reducción del impacto ambiental.</p>
+    <p><strong>Visión:</strong> Ser una empresa reconocida a nivel nacional como la principal distribuidora  de uniformes de seguridad industrial, ampliando nuestra cobertura y nuestro portafolio de servicios, utilizando los mejores estándares de calidad, con personal capacitado, infraestructura y tecnología de punta.</p>
+  </section>
+
+  <section class="section" id="calidad">
+    <h2>Política de Calidad</h2>
+    <p>Garantizamos la confección y distribución de productos confiables y puntuales, mediante un equipo capacitado, procesos optimizados y compromiso con la mejora continua y la sostenibilidad.</p>
+    <ul>
+      <li>Reducir el impacto ambiental y respetar los derechos humanos.</li>
+      <li>Producir prendas sostenibles y socialmente responsables.</li>
+      <li>Generar empleo de forma exitosa.</li>
+      <li>Ofrecer una alternativa saludable a la moda tradicional.</li>
+      <li>Cumplir y superar expectativas de calidad y cumplimiento.</li>
+      <li>Posicionarnos como líderes en confección nacional.</li>
+      <li>Mantener estándares de seguridad industrial.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="servicios">
+    <h2>Servicios</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="images/telas.png" alt="Tipo de prendas">
+        <h3>Confección Personalizada</h3>
+        <p>Uniformes industriales, ropa empresarial y prendas personalizadas.</p>
+      </div>
+      <div class="card">
+        <img src="images/mujer.png" alt="Operaria">
+        <h3>Equipo Humano</h3>
+        <p>Personal altamente capacitado, comprometido con la calidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="galeria">
+    <h2>Galería</h2>
+    <div class="grid">
+      <img src="images/producto1.png" alt="producto1">
+      <img src="images/producto2.png" alt="producto2">
+      <img src="images/producto3.png" alt="producto3">
+      <img src="images/producto 5.png" alt="producto4">
+      <img src="images/producto4.png" alt="producto5">
+      <img src="images/producto6.png" alt="producto6">
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <div class="container">
+      <h2>Contacto</h2>
+      <div class="contact-info">
+        <div class="contact-item">
+          <h3>Teléfono</h3>
+          <p>+591 77368857</p>
+          <p>+591 77371855</p>
+        </div>
+        <div class="contact-item">
+          <h3>Dirección</h3>
+          <p>Octavo anillo Entre Av. Alemania y Beni  B/Pedro Cortez</p>
+          <p>Santa Cruz - Bolivia</p>
+        </div>
+        <div class="contact-item">
+          <h3>Correo electrónico</h3>
+          <p><a href="mailto:libiaortizsanchez@hotmail.com">libiaortizsanchez@hotmail.com</a></p>
+          <p><a href="mailto:desafiotextilsrl@desafiotextilsrl.com">desafiotextilsrl@desafiotextilsrl.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Círculo Textil | Todos los derechos reservados</p>
+    <p>¡Visítanos y conoce la calidad de nuestros productos!</p>
+  </footer>
+</body>
+</html>
+
+<script>
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Toggle menú hamburguesa
+  document.querySelector(".menu-toggle").addEventListener("click", function() {
+    document.querySelector(".menu").classList.toggle("show");
+  });
+</script>
